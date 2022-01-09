@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { darkTheme } from './Theme';
 
-const Logo = styled.h1`
+const LogoComponent = styled.h1`
     display: inline-block;
     color: ${props => props.color === 'dark' ? darkTheme.text : darkTheme.body};
     font-family: 'Pacifico', cursive;
@@ -13,12 +13,12 @@ const Logo = styled.h1`
     z-index: 3;
 `;
 
-const LogoComponent = (props) => {
+const Logo = (props) => {
     return (
-        <Logo color={props.theme}>
+        <LogoComponent color={props.theme}>
             ON
-        </Logo>
+        </LogoComponent>
     )
 }
 
-export default LogoComponent
+export default Logo

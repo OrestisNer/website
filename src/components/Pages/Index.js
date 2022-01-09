@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { ContactLink, BlogLink, WorkLink, AboutLink, SkillsLink } from './Navigation';
-import LogoComponent from './LogoComponent';
-import PowerButton from './PowerButton';
-import SocialIcons from './SocialIcons';
-import Intro from './Intro';
-import { FibonacciSvg } from './SVGs';
+import { ContactLink, BlogLink, WorkLink, AboutLink, SkillsLink } from '../Navigation';
+import Logo from '../Logo';
+import PowerButton from '../PowerButton';
+import SocialIcons from '../SocialIcons';
+import Intro from '../Intro';
+import { FibonacciSvg } from '../SVGs';
 
-const MainContainer = styled.div`
+const IndexContainer = styled.div`
     background: ${props => props.theme.body};
     width: 100vw;
     height: 100vh;
@@ -82,17 +82,17 @@ const BottomBar = styled.div`
 `;
 
 
-const Main = () => {
+const Index = () => {
     const [click, setClick] = useState(false);
 
     const handleClick = () => setClick(!click);
 
     return (
-        <MainContainer>
+        <IndexContainer>
             <DarkDiv click={click} />
             <Container>
                 <PowerButton />
-                <LogoComponent theme={click ? 'dark' : 'light'} />
+                <Logo theme={click ? 'dark' : 'light'} />
                 <SocialIcons theme={click ? 'dark' : 'light'} />
 
                 <Center click={click}>
@@ -110,8 +110,8 @@ const Main = () => {
                 </BottomBar>
             </Container>
             {click ? <Intro click={click} /> : null}
-        </MainContainer>
+        </IndexContainer>
     )
 }
 
-export default Main;
+export default Index;
