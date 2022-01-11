@@ -5,6 +5,7 @@ import { DevelopeSvg, DesignSvg } from '../SVGs';
 import Logo from '../Logo';
 import SocialIcons from '../SocialIcons';
 import PowerButton from '../PowerButton';
+import Particles from '../Particles';
 
 const Box = styled.div`
     background-color: ${props => props.theme.body};
@@ -78,48 +79,9 @@ const MySkillsPage = () => {
     return (
         <ThemeProvider theme={lightTheme}>
             <Box>
+                <Particles theme="light" />
                 <Logo theme="light" />
-                <SocialIcons theme="ligh" />
-                <PowerButton />
-                <Main>
-                    <Title>
-                        <DesignSvg width={40} height={40} /> Designer
-                    </Title>
-                    <Description>
-                        I love to create design which speaks, Keep it clean, minimal and simple.
-                    </Description>
-                    <Description>
-                        <strong>I like to design</strong>
-                        <ul>
-                            <li>Web Apps</li>
-                            <li>Mobile Apps</li>
-                        </ul>
-                    </Description>
-                    <Description>
-                        <strong>Tools</strong>
-                        <p>Figma</p>
-                    </Description>
-                </Main>
-                <Main>
-                    <Title>
-                        <DevelopeSvg width={40} height={40} /> Full Stack Developer
-                    </Title>
-                    <Description>
-                        I value business or brand for which i'm creating, thus i enjoy bringing new ideas to life.
-                    </Description>
-                    <Description>
-                        <strong>Skills</strong>
-                        <p>Html, Css, Js, React, Redux, Sass, Bootstrap, Tailwind, Firebase etc.</p>
-                    </Description>
-                    <Description>
-                        <strong>Tools</strong>
-                        <p>VSCode, Github, Codepen etc.</p>
-                    </Description>
-                </Main>
-            </Box>
-            <Box>
-                <Logo theme="light" />
-                <SocialIcons theme="ligh" />
+                <SocialIcons theme="light" />
                 <PowerButton />
                 <Main>
                     <Title>
