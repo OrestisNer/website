@@ -6,6 +6,7 @@ import Logo from '../Logo';
 import SocialIcons from '../SocialIcons';
 import PowerButton from '../PowerButton';
 import Particles from '../Particles';
+import BigTitle from '../BigTitle';
 
 const Box = styled.div`
     background-color: ${props => props.theme.body};
@@ -83,6 +84,7 @@ const MySkillsPage = () => {
                 <Logo theme="light" />
                 <SocialIcons theme="light" />
                 <PowerButton />
+                <BigTitle text="SKILLS" top="80%" left="30%" />
                 <Main>
                     <Title>
                         <DesignSvg width={40} height={40} /> Designer

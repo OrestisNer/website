@@ -7,6 +7,7 @@ import PowerButton from '../PowerButton';
 import Blog from '../Blog';
 import blogs from '../../data/blogs';
 import Anchor from '../Anchor';
+import BigTitle from '../BigTitle';
 
 const MainContainer = styled.div`
     background-image: url(${background});
@@ -51,6 +52,8 @@ const BlogPage = () => {
                 <Logo />
                 <PowerButton />
                 <SocialIcons />
+                <BigTitle text="BLOG" top="5rem" left="5rem" />
+
                 <Anchor numbers={numbers} />
                 <Center>
                     <Grid>

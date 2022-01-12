@@ -6,6 +6,7 @@ import SocialIcons from '../SocialIcons';
 import PowerButton from '../PowerButton';
 import Particles from '../Particles';
 import spaceman from '../../assets/images/spaceman.png';
+import BigTitle from '../BigTitle';
 
 const Box = styled.div`
     background-color: ${props => props.theme.body};
@@ -66,6 +67,7 @@ const AboutPage = () => {
                 <Logo theme="dark" />
                 <SocialIcons theme="dark" />
                 <PowerButton />
+                <BigTitle text="ABOUT" top="10%" left="5%" />
 
                 <Spaceman>
                     <img src={spaceman} alt="Spaceman" />
