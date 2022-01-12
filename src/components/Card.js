@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import { GithubSvg } from './SVGs';
+import { motion } from 'framer-motion';
 
-const Box = styled.li`
+const Box = styled(motion.li)`
     width: 16rem;
     height: 40vh;
     background-color: ${props => props.theme.text};
@@ -80,11 +81,24 @@ const Git = styled.a`
     }
 `;
 
+const Item = {
+    hidden: {
+        scale: 0
+    },
+    show: {
+        scale: 1,
+        transition: {
+            type: 'string',
+            duration: 0.5
+        }
+    }
+};
+
 const Card = (props) => {
 
-    const { name, description, tags, demo, github } = props.data;
+    const { id, name, description, tags, demo, github } = props.data;
     return (
-        <Box>
+        <Box key={id} variants={Item}>
             <Title>{name}</Title>
             <Description>{description}</Description>
             <Tags>
