@@ -3,10 +3,32 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const linkAnimation = {
+const linkHoverAnimation = {
     whileHover: { scale: 1.1 },
     whileTap: { scale: 0.9 }
 };
+
+const transitionAnimation = {
+    initial: {
+        y: -200,
+        transition: { type: 'spring', duration: 1.5, delay: 1 }
+    },
+    animate: {
+        y: 0,
+        transition: { type: 'spring', duration: 1.5, delay: 1 }
+    }
+};
+
+const bottomTransitionAnimation = {
+    initial: {
+        y: 200,
+        transition: { type: 'spring', duration: 1.5, delay: 1 }
+    },
+    animate: {
+        y: 0,
+        transition: { type: 'spring', duration: 1.5, delay: 1 }
+    }
+}
 
 const Contact = styled.a`
     color: ${props => props.theme.text};
@@ -20,7 +42,7 @@ const Contact = styled.a`
 
 export const ContactLink = () => (
     <Contact target="_blank" href="mailto:orestis.ner@gmail.com">
-        <motion.h2 {...linkAnimation}>
+        <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>
             Say hi..
         </motion.h2>
     </Contact>
@@ -39,7 +61,7 @@ const Blog = styled(NavLink)`
 
 export const BlogLink = () => (
     <Blog to="/blog">
-        <motion.h2 {...linkAnimation}>Blog</motion.h2>
+        <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>Blog</motion.h2>
     </Blog>
 );
 
@@ -56,7 +78,7 @@ const Work = styled(NavLink)`
 
 export const WorkLink = (props) => (
     <Work click={props.click} to="/work">
-        <motion.h2 {...linkAnimation}>Work</motion.h2>
+        <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>Work</motion.h2>
     </Work>
 );
 
@@ -68,7 +90,7 @@ const About = styled(NavLink)`
 
 export const AboutLink = (props) => (
     <About click={props.click} to="/about">
-        <motion.h2 {...linkAnimation}>About</motion.h2>
+        <motion.h2 {...linkHoverAnimation} {...bottomTransitionAnimation}>About</motion.h2>
     </About>
 );
 
@@ -80,7 +102,7 @@ const Skills = styled(NavLink)`
 
 export const SkillsLink = () => (
     <Skills to="/skills">
-        <motion.h2 {...linkAnimation}>Skills</motion.h2>
+        <motion.h2 {...linkHoverAnimation} {...bottomTransitionAnimation}>Skills</motion.h2>
     </Skills>
 );
 

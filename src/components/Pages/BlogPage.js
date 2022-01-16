@@ -8,8 +8,9 @@ import Blog from '../Blog';
 import blogs from '../../data/blogs';
 import Anchor from '../Anchor';
 import BigTitle from '../BigTitle';
+import { motion } from 'framer-motion';
 
-const MainContainer = styled.div`
+const MainContainer = styled(motion.div)`
     background-image: url(${background});
     background-size: cover;
     background-repeat: no-repeat;
@@ -38,6 +39,18 @@ const Grid = styled.div`
     grid-gap: calc(1rem + 2vw);
 `;
 
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+
+        transition: {
+            staggerChildren: 0.5,
+            duration: 0.5
+        }
+    }
+}
+
 const BlogPage = () => {
     const [numbers, setNumbers] = useState(0);
 
@@ -47,7 +60,14 @@ const BlogPage = () => {
     }, []);
 
     return (
-        <MainContainer>
+        <MainContainer
+            variants={container}
+            initial='hidden'
+            animate='show'
+            exit={{
+                opacity: 0, transition: { duration: 0.5 }
+            }}
+        >
             <Container>
                 <Logo />
                 <PowerButton />
