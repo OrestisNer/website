@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import styled, { ThemeProvider, keyframes } from 'styled-components';
-import { darkTheme } from '../Theme';
-import Logo from '../Logo';
-import SocialIcons from '../SocialIcons';
-import PowerButton from '../PowerButton';
-import Particles from '../Particles';
+import { darkTheme, mediaQueries } from '../Theme';
+import Loading from '../Loading';
 import spaceman from '../../assets/images/spaceman.png';
-import BigTitle from '../BigTitle';
+
+const Logo = lazy(() => import('../Logo'));
+const SocialIcons = lazy(() => import('../SocialIcons'));
+const PowerButton = lazy(() => import('../PowerButton'));
+const Particles = lazy(() => import('../Particles'));
+const BigTitle = lazy(() => import('../BigTitle'));
 
 const Box = styled.div`
     background-color: ${props => props.theme.body};
@@ -57,30 +59,52 @@ const Main = styled.div`
     font-family: 'Ubuntu Mone', monospace;
     font-style: italic;
 
+    ${mediaQueries(40)`
+        width: 60vw;
+        height: 50vh;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+    `};
+
+    ${mediaQueries(30)`
+        width: 50vw;
+        height: auto;
+        backdrop-filter: none;
+        margin-top:2rem;
+    `};
+
+    ${mediaQueries(20)`
+        padding: 1rem;
+        font-size: calc(0.5rem + 1vw);
+    `};
+
 `;
 
 const AboutPage = () => {
     return (
         <ThemeProvider theme={darkTheme}>
-            <Box>
-                <Particles theme="dark" />
-                <Logo theme="dark" />
-                <SocialIcons theme="dark" />
-                <PowerButton />
-                <BigTitle text="ABOUT" top="10%" left="5%" />
+            <Suspense fallback={<Loading />}>
+                <Box>
+                    <Particles theme="dark" />
+                    <Logo theme="dark" />
+                    <SocialIcons theme="dark" />
+                    <PowerButton />
+                    <BigTitle text="ABOUT" top="10%" left="5%" />
 
-                <Spaceman>
-                    <img src={spaceman} alt="Spaceman" />
-                </Spaceman>
+                    <Spaceman>
+                        <img src={spaceman} alt="Spaceman" />
+                    </Spaceman>
 
-                <Main>
-                    I'm a front-end developer located in India. I love to create simple yet beautiful websites with great user experience.
-                    <br /><br />
-                    I'm interested in the whole frontend stack Like trying new things and building great projects. I'm an independent freelancer and blogger. I love to write blogs and read books.
-                    <br /><br />
-                    I believe everything is an Art when you put your consciousness in it. You can connect with me via social links.
-                </Main>
-            </Box>
+                    <Main>
+                        I'm a front-end developer located in India. I love to create simple yet beautiful websites with great user experience.
+                        <br /><br />
+                        I'm interested in the whole frontend stack Like trying new things and building great projects. I'm an independent freelancer and blogger. I love to write blogs and read books.
+                        <br /><br />
+                        I believe everything is an Art when you put your consciousness in it. You can connect with me via social links.
+                    </Main>
+                </Box>
+            </Suspense>
         </ThemeProvider>
 
     )

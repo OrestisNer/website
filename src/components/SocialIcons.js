@@ -29,10 +29,12 @@ const Line = styled(motion.span)`
 `;
 
 const SocialIcons = (props) => {
+    const mq = window.matchMedia("(max-width: 50em)").matches;
+
     const iconProps = {
         width: 25,
         height: 25,
-        fill: props.theme === 'dark' ? darkTheme.text : darkTheme.body
+        fill: props.theme === 'dark' && !mq ? darkTheme.text : darkTheme.body
     };
 
     return (

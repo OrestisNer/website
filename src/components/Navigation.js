@@ -30,8 +30,10 @@ const bottomTransitionAnimation = {
     }
 }
 
+const mq = window.matchMedia("(max-width: 50em)").matches;
+
 const Contact = styled.a`
-    color: ${props => props.theme.text};
+    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     position: absolute;
     top: 2rem;
     right: calc(1rem + 2vw);
@@ -40,8 +42,8 @@ const Contact = styled.a`
     transition: all .2s ease-in-out;
 `;
 
-export const ContactLink = () => (
-    <Contact target="_blank" href="mailto:orestis.ner@gmail.com">
+export const ContactLink = (props) => (
+    <Contact click={mq ? props.click : false} target="_blank" href="mailto:orestis.ner@gmail.com">
         <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>
             Say hi..
         </motion.h2>
@@ -50,17 +52,21 @@ export const ContactLink = () => (
 
 
 const Blog = styled(NavLink)`
-    color: ${props => props.theme.text};
+    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
     position: absolute;
     top: 50%;
     right: calc(1rem + 2vw);
     transform: rotate(90deg) translate(-50%, -50%);
     text-decoration: none;
     z-index: 1;
+
+    @media only screen and (max-width: 50em) {
+        text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+    }
 `;
 
-export const BlogLink = () => (
-    <Blog to="/blog">
+export const BlogLink = (props) => (
+    <Blog click={mq ? props.click : false} to="/blog">
         <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>Blog</motion.h2>
     </Blog>
 );
@@ -74,6 +80,10 @@ const Work = styled(NavLink)`
     transform: translate(-50%, -50%) rotate(-90deg);
     text-decoration: none;
     z-index: 1;
+
+    @media only screen and (max-width: 50em) {
+        text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+    }
 `;
 
 export const WorkLink = (props) => (

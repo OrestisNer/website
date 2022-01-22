@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion';
+import { mediaQueries } from './Theme';
 
 const Box = styled(motion.a)`
     width: calc(10rem + 15vw);
@@ -22,6 +23,20 @@ const Box = styled(motion.a)`
         background-color: ${props => props.theme.text};
         transition: all 0.3s ease;
     }
+
+    ${mediaQueries(50)`
+        width:calc(60vw);
+    `};
+
+    ${mediaQueries(30)`
+        height:18rem;
+    `};
+
+    ${mediaQueries(25)`
+        height:14rem;
+        padding:0.8rem;
+        backdrop-filter: none;
+    `};
 `;
 
 const Image = styled.div`
@@ -36,6 +51,9 @@ const Image = styled.div`
         border: 1px solid ${props => props.theme.body};
     }
 
+    ${mediaQueries(25)`
+        height:70%;
+    `};
 `;
 
 const Title = styled.h3`
@@ -45,10 +63,21 @@ const Title = styled.h3`
     font-family: 'Karla', sans-serif;
     font-weight: 700;
     border-bottom: 1px solid ${props => props.theme.text};
+
+    ${mediaQueries(40)`
+        font-size:calc(0.8em + 1vw);
+    `};
+
+    ${mediaQueries(25)`
+        font-size:calc(0.6em + 1vw);
+    `};
 `;
 
 const HashTags = styled.div`
     padding: 0.5rem 0;
+    ${mediaQueries(25)`
+        -size:calc(0.5em + 1vw);
+    `};
 `;
 
 const Tag = styled.span`
@@ -57,6 +86,9 @@ const Tag = styled.span`
 
 const Date = styled.span`
     padding: 0.5rem 0;
+    ${mediaQueries(25)`
+        font-size:calc(0.5em + 1vw);
+    `};
 `;
 
 const Container = styled(motion.div)``;

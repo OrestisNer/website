@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { motion } from 'framer-motion';
+import { FibonacciSvg } from '../SVGs';
+import { mediaQueries } from '../Theme';
+import Loading from '../Loading';
+import Intro from '../Intro';
+
 import { ContactLink, BlogLink, WorkLink, AboutLink, SkillsLink } from '../Navigation';
-import Logo from '../Logo';
 import PowerButton from '../PowerButton';
 import SocialIcons from '../SocialIcons';
-import Intro from '../Intro';
-import { FibonacciSvg } from '../SVGs';
+const Logo = lazy(() => import('../Logo'));
 
-const IndexContainer = styled.div`
+const IndexContainer = styled(motion.div)`
     background: ${props => props.theme.body};
     width: 100vw;
     height: 100vh;
@@ -18,6 +22,16 @@ const IndexContainer = styled.div`
     h2, h3, h4, h5, h6 {
         font-family: 'Karla', sans-serif;
         font-weight: 500;
+    }
+
+    h2 {
+        ${mediaQueries(40)`
+            font-size:1.2em;
+        `};
+    
+        ${mediaQueries(30)`
+            font-size:1em;
+        `};
     }
 `
 const Container = styled.div`
@@ -42,6 +56,19 @@ const DarkDiv = styled.div`
     height: ${props => props.click ? '100%' : '0%'};
     z-index: 1;
     transition: height 0.5s ease, width 1s ease 0.5s;
+
+    ${props => props.click ?
+        mediaQueries(50)`
+            height: 50%;
+            right:0;
+            width: 100%;
+            transition: width 0.5s ease, height 1s ease 0.5s;
+        ` :
+        mediaQueries(50)`
+            height: 0;
+            width: 0;
+        `
+    }
 `;
 
 const Center = styled.button`
@@ -68,6 +95,18 @@ const Center = styled.button`
         display: ${props => props.click ? 'none' : 'inline-block'};
         padding-top: 1rem;
     }
+    
+    @media only screen and (max-width: 50em) {
+        top: ${(props) => (props.click ? "90%" : "50%")};
+        left: ${(props) => (props.click ? "90%" : "50%")};
+        width: ${(props) => (props.click ? "80px" : "150px")};
+        height: ${(props) => (props.click ? "80px" : "150px")};
+    }
+
+    @media only screen and (max-width: 30em) {
+        width: ${(props) => (props.click ? "40px" : "150px")};
+        height: ${(props) => (props.click ? "40px" : "150px")};
+    }
 `;
 
 const BottomBar = styled.div`
@@ -84,33 +123,56 @@ const BottomBar = styled.div`
 
 const Index = () => {
     const [click, setClick] = useState(false);
+    const [path, setpath] = useState("");
 
     const handleClick = () => setClick(!click);
 
+    const moveY = {
+        y: "-100%",
+    };
+    const moveX = {
+        x: `${path === "work" ? "100%" : "-100%"}`,
+    };
+    const mq = window.matchMedia("(max-width: 50em)").matches;
+
     return (
-        <IndexContainer>
-            <DarkDiv click={click} />
-            <Container>
-                <PowerButton />
-                <Logo theme={click ? 'dark' : 'light'} />
-                <SocialIcons theme={click ? 'dark' : 'light'} />
+        <Suspense fallback={<Loading />}>
+            <IndexContainer
+                key="modal"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={path === "about" || path === "skills" ? moveY : moveX}
+                transition={{ duration: 0.5 }}
+            >
+                <DarkDiv click={+click} />
+                <Container>
+                    <PowerButton />
+                    <Logo theme={click ? "dark" : "light"} />
+                    <SocialIcons theme={click ? "dark" : "light"} />
 
-                <Center click={click}>
-                    <FibonacciSvg onClick={() => handleClick()} width={click ? 120 : 200} height={click ? 120 : 200} fill='currentColor' />
-                    <span>Click Here</span>
-                </Center>
+                    <Center click={+click}>
+                        <FibonacciSvg
+                            onClick={() => handleClick()}
+                            width={click ? 80 : 150}
+                            height={click ? 80 : 150}
+                            fill="currentColor"
+                        />
+                        <span>Click Here</span>
+                    </Center>
 
-                <ContactLink />
-                <BlogLink />
-                <WorkLink click={click} />
+                    <ContactLink click={+click} />
+                    <BlogLink click={+click} />
+                    <WorkLink click={+click} />
 
-                <BottomBar>
-                    <AboutLink click={click} />
-                    <SkillsLink />
-                </BottomBar>
-            </Container>
-            {click ? <Intro click={click} /> : null}
-        </IndexContainer>
+                    <BottomBar>
+                        <AboutLink click={+click} />
+                        <SkillsLink />
+                    </BottomBar>
+                </Container>
+
+                {click ? <Intro click={+click} /> : null}
+            </IndexContainer>
+        </Suspense>
     )
 }
 
