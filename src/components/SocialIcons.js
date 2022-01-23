@@ -25,16 +25,24 @@ const Icons = styled.div`
 const Line = styled(motion.span)`
     width: 2px;
     height: 3rem;
-    background-color: ${props => props.color === 'dark' ? darkTheme.text : darkTheme.body}
+    background-color: ${props => props.fill ?? getSocialColor(props.theme)}
 `;
 
-const SocialIcons = (props) => {
+const getSocialColor = (theme) => {
     const mq = window.matchMedia("(max-width: 50em)").matches;
+    if (theme === 'dark') {
+        return (mq) ? darkTheme.body : darkTheme.text;
+    }
+
+    return darkTheme.body;
+}
+
+const SocialIcons = (props) => {
 
     const iconProps = {
         width: 25,
         height: 25,
-        fill: props.theme === 'dark' && !mq ? darkTheme.text : darkTheme.body
+        fill: props.fill ?? getSocialColor(props.theme)
     };
 
     return (
@@ -76,10 +84,11 @@ const SocialIcons = (props) => {
                 </NavLink>
             </motion.div>
             <Line
-                color={props.theme}
+                theme={props.theme}
+                fill={props.fill}
                 initial={{ height: 0 }}
                 animate={{ height: '3rem' }}
-                transition={{ type: 'spring', duration: 1, delay: 0.8 }}
+                transition={{ type: 'spring', duration: 0.2, delay: 0.8 }}
             />
         </Icons>
     )

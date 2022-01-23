@@ -147,7 +147,7 @@ const Text = styled.div`
     `};
 `;
 
-const Intro = (props) => {
+const Intro = () => {
     const [height, setHeight] = useState("55vh");
 
     useEffect(() => {

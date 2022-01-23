@@ -33,7 +33,7 @@ const bottomTransitionAnimation = {
 const mq = window.matchMedia("(max-width: 50em)").matches;
 
 const Contact = styled.a`
-    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
+    color: ${(props) => (props.$startClick ? props.theme.body : props.theme.text)};
     position: absolute;
     top: 2rem;
     right: calc(1rem + 2vw);
@@ -43,7 +43,7 @@ const Contact = styled.a`
 `;
 
 export const ContactLink = (props) => (
-    <Contact click={mq ? props.click : false} target="_blank" href="mailto:orestis.ner@gmail.com">
+    <Contact $startClick={mq ? props.$startClick : false} target="_blank" href="mailto:orestis.ner@gmail.com">
         <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>
             Say hi..
         </motion.h2>
@@ -52,7 +52,7 @@ export const ContactLink = (props) => (
 
 
 const Blog = styled(NavLink)`
-    color: ${(props) => (props.click ? props.theme.body : props.theme.text)};
+    color: ${(props) => (props.$startClick ? props.theme.body : props.theme.text)};
     position: absolute;
     top: 50%;
     right: calc(1rem + 2vw);
@@ -61,19 +61,19 @@ const Blog = styled(NavLink)`
     z-index: 1;
 
     @media only screen and (max-width: 50em) {
-        text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+        text-shadow: ${(props) => (props.$startClick ? "0 0 4px #000" : "none")};
     }
 `;
 
 export const BlogLink = (props) => (
-    <Blog click={mq ? props.click : false} to="/blog">
+    <Blog $startClick={mq ? props.$startClick : false} to="/blog">
         <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>Blog</motion.h2>
     </Blog>
 );
 
 
 const Work = styled(NavLink)`
-    color: ${props => props.click ? props.theme.body : props.theme.text};
+    color: ${props => props.$startClick ? props.theme.body : props.theme.text};
     position: absolute;
     top: 50%;
     left: calc(1rem + 2vw);
@@ -82,24 +82,24 @@ const Work = styled(NavLink)`
     z-index: 1;
 
     @media only screen and (max-width: 50em) {
-        text-shadow: ${(props) => (props.click ? "0 0 4px #000" : "none")};
+        text-shadow: ${(props) => (props.$startClick ? "0 0 4px #000" : "none")};
     }
 `;
 
 export const WorkLink = (props) => (
-    <Work click={props.click} to="/work">
+    <Work $startClick={props.$startClick} to="/work">
         <motion.h2 {...linkHoverAnimation} {...transitionAnimation}>Work</motion.h2>
     </Work>
 );
 
 const About = styled(NavLink)`
-    color: ${props => props.click ? props.theme.body : props.theme.text};
+    color: ${props => props.$startClick ? props.theme.body : props.theme.text};
     text-decoration: none;
     z-index: 1;
 `;
 
 export const AboutLink = (props) => (
-    <About click={props.click} to="/about">
+    <About $startClick={props.$startClick} to="/about">
         <motion.h2 {...linkHoverAnimation} {...bottomTransitionAnimation}>About</motion.h2>
     </About>
 );

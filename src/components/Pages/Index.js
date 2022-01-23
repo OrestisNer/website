@@ -6,18 +6,18 @@ import { mediaQueries } from '../Theme';
 import Loading from '../Loading';
 import Intro from '../Intro';
 
+// Components
 import { ContactLink, BlogLink, WorkLink, AboutLink, SkillsLink } from '../Navigation';
-import PowerButton from '../PowerButton';
-import SocialIcons from '../SocialIcons';
 const Logo = lazy(() => import('../Logo'));
+const PowerButton = lazy(() => import('../PowerButton'));
+const SocialIcons = lazy(() => import('../SocialIcons'));
 
 const IndexContainer = styled(motion.div)`
     background: ${props => props.theme.body};
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
-
     position: relative;
+    overflow: hidden;
 
     h2, h3, h4, h5, h6 {
         font-family: 'Karla', sans-serif;
@@ -52,12 +52,12 @@ const DarkDiv = styled.div`
     top: 0;
     bottom: 0;
     right: 50%;
-    width: ${props => props.click ? '50%' : '0%'};
-    height: ${props => props.click ? '100%' : '0%'};
+    width: ${props => props.$startClick ? '50%' : '0%'};
+    height: ${props => props.$startClick ? '100%' : '0%'};
     z-index: 1;
     transition: height 0.5s ease, width 1s ease 0.5s;
 
-    ${props => props.click ?
+    ${props => props.$startClick ?
         mediaQueries(50)`
             height: 50%;
             right:0;
@@ -73,8 +73,8 @@ const DarkDiv = styled.div`
 
 const Center = styled.button`
     position: absolute;
-    top: ${props => props.click ? '85%' : '50%'};
-    left: ${props => props.click ? '92%' : '50%'};
+    top: ${props => props.$startClick ? '85%' : '50%'};
+    left: ${props => props.$startClick ? '92%' : '50%'};
     transform: translate(-50%, -50%);
     border: none;
     outline: none;
@@ -92,20 +92,20 @@ const Center = styled.button`
     }
 
     &>:last-child {
-        display: ${props => props.click ? 'none' : 'inline-block'};
+        display: ${props => props.$startClick ? 'none' : 'inline-block'};
         padding-top: 1rem;
     }
     
     @media only screen and (max-width: 50em) {
-        top: ${(props) => (props.click ? "90%" : "50%")};
-        left: ${(props) => (props.click ? "90%" : "50%")};
-        width: ${(props) => (props.click ? "80px" : "150px")};
-        height: ${(props) => (props.click ? "80px" : "150px")};
+        top: ${(props) => (props.$startClick ? "90%" : "50%")};
+        left: ${(props) => (props.$startClick ? "90%" : "50%")};
+        width: ${(props) => (props.$startClick ? "80px" : "150px")};
+        height: ${(props) => (props.$startClick ? "80px" : "150px")};
     }
 
     @media only screen and (max-width: 30em) {
-        width: ${(props) => (props.click ? "40px" : "150px")};
-        height: ${(props) => (props.click ? "40px" : "150px")};
+        width: ${(props) => (props.$startClick ? "40px" : "150px")};
+        height: ${(props) => (props.$startClick ? "40px" : "150px")};
     }
 `;
 
@@ -122,18 +122,8 @@ const BottomBar = styled.div`
 
 
 const Index = () => {
-    const [click, setClick] = useState(false);
-    const [path, setpath] = useState("");
-
-    const handleClick = () => setClick(!click);
-
-    const moveY = {
-        y: "-100%",
-    };
-    const moveX = {
-        x: `${path === "work" ? "100%" : "-100%"}`,
-    };
-    const mq = window.matchMedia("(max-width: 50em)").matches;
+    const [startClick, setStartClick] = useState(false);
+    const handleStartClick = () => setStartClick(!startClick);
 
     return (
         <Suspense fallback={<Loading />}>
@@ -141,36 +131,35 @@ const Index = () => {
                 key="modal"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={path === "about" || path === "skills" ? moveY : moveX}
                 transition={{ duration: 0.5 }}
             >
-                <DarkDiv click={+click} />
+                <DarkDiv $startClick={startClick} />
                 <Container>
                     <PowerButton />
-                    <Logo theme={click ? "dark" : "light"} />
-                    <SocialIcons theme={click ? "dark" : "light"} />
+                    <Logo theme={startClick ? "dark" : "light"} />
+                    <SocialIcons theme={startClick ? "dark" : "light"} />
 
-                    <Center click={+click}>
+                    <Center $startClick={startClick}>
                         <FibonacciSvg
-                            onClick={() => handleClick()}
-                            width={click ? 80 : 150}
-                            height={click ? 80 : 150}
+                            onClick={() => handleStartClick()}
+                            width={startClick ? 80 : 150}
+                            height={startClick ? 80 : 150}
                             fill="currentColor"
                         />
                         <span>Click Here</span>
                     </Center>
 
-                    <ContactLink click={+click} />
-                    <BlogLink click={+click} />
-                    <WorkLink click={+click} />
+                    <ContactLink $startClick={startClick} />
+                    <BlogLink $startClick={startClick} />
+                    <WorkLink $startClick={startClick} />
 
                     <BottomBar>
-                        <AboutLink click={+click} />
+                        <AboutLink $startClick={startClick} />
                         <SkillsLink />
                     </BottomBar>
                 </Container>
 
-                {click ? <Intro click={+click} /> : null}
+                {startClick ? <Intro $startClick={startClick} /> : null}
             </IndexContainer>
         </Suspense>
     )

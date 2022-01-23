@@ -48,7 +48,7 @@ const Line = styled.span`
     border: 1px solid ${props => props.theme.body};
 
     animation: ${play} 1s ease infinite;
-    animation-play-state: ${props => props.click ? "running" : "paused"};
+    animation-play-state: ${props => props.$soundClick ? "running" : "paused"};
     height: 1rem;
     width: 2px;
     margin: 0 0.1rem;
@@ -56,24 +56,24 @@ const Line = styled.span`
 
 const SoundBar = () => {
     const ref = useRef(null);
-    const [click, setClick] = useState(false);
+    const [soundClick, setSoundClick] = useState(false);
 
-    const handleClick = () => {
-        setClick(!click);
+    const handleSoundClick = () => {
+        setSoundClick(!soundClick);
 
-        if (!click) {
+        if (!soundClick) {
             ref.current.play();
         } else {
             ref.current.pause();
         }
     }
     return (
-        <Box onClick={() => handleClick()}>
-            <Line click={click} />
-            <Line click={click} />
-            <Line click={click} />
-            <Line click={click} />
-            <Line click={click} />
+        <Box onClick={() => handleSoundClick()}>
+            <Line $soundClick={soundClick} />
+            <Line $soundClick={soundClick} />
+            <Line $soundClick={soundClick} />
+            <Line $soundClick={soundClick} />
+            <Line $soundClick={soundClick} />
 
             <audio src={music} ref={ref} loop />
         </Box>
