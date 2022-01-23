@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components';
 import { FacebookSvg, GithubSvg, TwitterSvg, LinkedInSvg } from './SVGs'
-import { darkTheme } from './Theme';
+import { darkTheme, mediaQueries } from './Theme';
 import { motion } from 'framer-motion';
 
 
@@ -19,7 +19,19 @@ const Icons = styled.div`
 
     &>*:not(:last-child) {
         margin: 0.5rem 0;
+
+        ${mediaQueries(20)`
+            margin: 0.3rem 0;
+        `};
     }
+
+    ${mediaQueries(40)`
+        left: 1rem;
+        svg{
+            width:20px;
+            height:20px
+        }
+    `};
 `;
 
 const Line = styled(motion.span)`

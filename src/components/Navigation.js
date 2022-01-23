@@ -93,7 +93,14 @@ export const WorkLink = (props) => (
 );
 
 const About = styled(NavLink)`
-    color: ${props => props.$startClick ? props.theme.body : props.theme.text};
+    color: ${props => {
+        if (mq) { return props.theme.text }
+
+        return props.$startClick ?
+            props.theme.body :
+            props.theme.text;
+    }};
+
     text-decoration: none;
     z-index: 1;
 `;

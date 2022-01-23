@@ -1,9 +1,14 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { LinkSvg, AnchorSvg } from './SVGs';
+import { mediaQueries } from './Theme';
 
 const Container = styled.div`
     position: relative;
+
+    ${mediaQueries(40)`
+        display: none;
+    `};
 `;
 
 const Slider = styled.div`
@@ -52,8 +57,6 @@ const Anchor = (props) => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    console.log(props.numbers);
 
     return (
         <Container>

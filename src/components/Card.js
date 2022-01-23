@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { GithubSvg } from './SVGs';
 import { motion } from 'framer-motion';
+import { mediaQueries } from './Theme';
 
 const Box = styled(motion.li)`
     width: 16rem;
@@ -23,6 +24,31 @@ const Box = styled(motion.li)`
         color: ${props => props.theme.text};
         border: 1px solid ${props => props.theme.text};
     }
+
+    ${mediaQueries(50)`
+        width:16rem;
+        margin-right:6rem;
+        height:35vh;
+    `};
+
+    ${mediaQueries(40)`
+        width:14rem;
+        margin-right:4rem;
+        height:35vh;
+    `};
+
+    ${mediaQueries(25)`
+        width:12rem;
+        margin-right:4rem;
+        height:35vh;
+        padding:1.5rem 1.5rem;
+    `};
+
+    ${mediaQueries(20)`
+        width:10rem;
+        margin-right:4rem;
+        height:40vh;
+    `};
 `;
 
 const Title = styled.h2`
@@ -33,6 +59,14 @@ const Description = styled.h2`
     font-size: calc(0.8em + 0.3vw);
     font-family: 'Karla', sans-serif;
     font-weight: 500;
+
+    ${mediaQueries(25)`
+        font-size:calc(0.7em + 0.3vw);
+    `};
+    
+    ${mediaQueries(20)`
+        font-size:calc(0.6em + 0.3vw);
+    `};
 `;
 
 const Tags = styled.div`
@@ -44,6 +78,10 @@ const Tags = styled.div`
     ${Box}:hover & {
         border-top: 2px solid ${props => props.theme.text};
     }
+
+    ${mediaQueries(25)`
+        font-size:calc(0.7em);
+    `};
 `;
 
 const Tag = styled.span`
